@@ -77,14 +77,6 @@ class Field {
         return generatedField;
     }
 
-    // print() {
-        // for (let i = 0; i < this._arr.length; i++) {
-            // this._arr[i].push('\n')
-        //}
-        //let gameField = (this._arr.toString()).replaceAll(',', '');
-        //return gameField;
-    //}
-
     print() {
         let gameField = '';
         let str = '';
@@ -108,13 +100,6 @@ class Field {
         return gameField;
     }
 }
-  
-//const myField = new Field([
-    //['*', '░', 'O', 'O', 'O'],
-    //['░', 'O', '░', '░', '░'],
-    //['░', '░', '░', 'O', '^'],
-    //['O', '░', 'O', 'O', 'O'],
-//])
 
 let game = new Field(Field.generateField(8, 20, .1))
 let h = 0;
@@ -132,15 +117,6 @@ function setCoordinates(item, h, w) {
         console.log(item.print());
     }
 }
-
-//setCoords(h, w) {
-    //console.log(this._arr);
-    //if (h < 0 || h > (this._arr.length - 1) || w < 0 || w > (this._arr[0].length - 1)) {
-        //console.log("Out of bounds, please enter another input")
-    //} else {
-        //this._arr[h][w] = '*';
-    //}
-//}
 
 console.log(game.print());
 
