@@ -77,33 +77,112 @@ class Field {
         return generatedField;
     }
 
+    // print() {
+        // for (let i = 0; i < this._arr.length; i++) {
+            // this._arr[i].push('\n')
+        //}
+        //let gameField = (this._arr.toString()).replaceAll(',', '');
+        //return gameField;
+    //}
+
     print() {
-        for (let i = 0; i < this._arr.length; i++) {
-            this._arr[i].push('\n')
-        }
-        let gameField = (this._arr.toString()).replaceAll(',', '');
+        let gameField = '';
+        let str = '';
+        // Loops through each array in field
+        this._arr.forEach(item => {
+            for (let i = 0; i < item.length; i++) {
+                // If new array is being looped through, reset str
+                if (i === 0) {
+                    str = '';
+                    str += item[i];
+                // If array is at last item, add a new line and add str to gameField
+                } else if (i === item.length - 1) {
+                    str += item[i];
+                    str += '\n';
+                    gameField += str;
+                } else {
+                    str += item[i]
+                }
+            }
+        })
         return gameField;
     }
 }
   
-const myField = new Field([
-    ['*', '░', 'O', 'O', 'O'],
-    ['░', 'O', '░', '░', '░'],
-    ['░', '░', '░', 'O', '^'],
-    ['O', '░', 'O', 'O', 'O'],
-])
+//const myField = new Field([
+    //['*', '░', 'O', 'O', 'O'],
+    //['░', 'O', '░', '░', '░'],
+    //['░', '░', '░', 'O', '^'],
+    //['O', '░', 'O', 'O', 'O'],
+//])
 
 let game = new Field(Field.generateField(8, 20, .1))
+let h = 0;
+let w = 0;
+
+function setCoordinates(item, h, w) {
+    if (item._arr[h][w] === hole) {
+        console.log('GAME OVER!')
+        alive = false;
+    } else if (item._arr[h][w] === hat) {
+        console.log('YOU WIN!')
+        alive = false;
+    } else {
+        item._arr[h][w] = '*';
+        console.log(item.print());
+    }
+}
+
+//setCoords(h, w) {
+    //console.log(this._arr);
+    //if (h < 0 || h > (this._arr.length - 1) || w < 0 || w > (this._arr[0].length - 1)) {
+        //console.log("Out of bounds, please enter another input")
+    //} else {
+        //this._arr[h][w] = '*';
+    //}
+//}
+
+console.log(game.print());
 
 function playGame() {
     while (alive) {
-        console.log(game.print())
         let input = prompt('Please enter input: ');
+
         if (input === 'x') {
-            game = new Field(Field.generateField(8, 20, .1))
-            console.log(game.print())
-        } else if (input === 'd') {
+            game = new Field(Field.generateField(8, 20, .1));
+            h = 0;
+            w = 0;
+            console.log(game.print());
+        } else if (input === 'q') {
             alive = false;
+        } else if (input === 'd') {
+            w += 1;
+            if (w > (game._arr[0].length - 1)) {
+                w -= 1;
+                console.log("Out of bounds, please enter another input")
+            }
+            setCoordinates(game, h, w);
+        } else if (input === 'a') {
+            w -= 1;
+            if (w < 0) {
+                w += 1;
+                console.log("Out of bounds, please enter another input")
+            }
+            setCoordinates(game, h, w);
+        } else if (input === 'w') {
+            h -= 1;
+            if (h < 0) {
+                h += 1;
+                console.log("Out of bounds, please enter another input")
+            }
+            setCoordinates(game, h, w);
+        } else if (input === 's') {
+            h += 1;
+            if (h > (game._arr.length - 1)) {
+                h -= 1;
+                console.log("Out of bounds, please enter another input")
+            }
+            setCoordinates(game, h, w);
         }
     }
 }
