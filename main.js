@@ -122,7 +122,7 @@ console.log(game.print());
 
 function playGame() {
     while (alive) {
-        let input = prompt('Please enter input: ');
+        let input = (prompt('Please enter input: ')).toLowerCase();
 
         if (input === 'x') {
             game = new Field(Field.generateField(8, 20, .1));
